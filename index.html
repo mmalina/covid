@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .error {
+        color: red;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"layer": [{"mark": {"type": "bar", "color": "#5276A7"}, "encoding": {"x": {"type": "ordinal", "axis": {"title": "Datum"}, "field": "datum"}, "y": {"type": "quantitative", "axis": {"title": "Denn\u00ed n\u00e1r\u016fst", "titleColor": "#5276A7"}, "field": "pocetDen"}}, "transform": [{"filter": "(datum.datum > '2020-03-10')"}, {"calculate": "datum.pocetDen / (datum.pocetCelkem - datum.pocetDen)", "as": "narustProcent"}]}, {"mark": {"type": "text", "dy": -5}, "encoding": {"text": {"type": "quantitative", "field": "pocetDen"}, "x": {"type": "ordinal", "axis": {"title": "Datum"}, "field": "datum"}, "y": {"type": "quantitative", "axis": {"title": "Denn\u00ed n\u00e1r\u016fst", "titleColor": "#5276A7"}, "field": "pocetDen"}}, "transform": [{"filter": "(datum.datum > '2020-03-10')"}, {"calculate": "datum.pocetDen / (datum.pocetCelkem - datum.pocetDen)", "as": "narustProcent"}]}]}, {"mark": {"type": "line", "color": "#F18727"}, "encoding": {"x": {"type": "ordinal", "axis": {"title": "Datum"}, "field": "datum"}, "y": {"type": "quantitative", "axis": {"format": ".0%", "title": "5denn\u00ed klouzav\u00fd pr\u016fm\u011brn\u00fd n\u00e1r\u016fst (%)", "titleColor": "#F18727"}, "field": "klouzavyPrumer"}}, "transform": [{"filter": "(datum.datum > '2020-03-10')"}, {"calculate": "datum.pocetDen / (datum.pocetCelkem - datum.pocetDen)", "as": "narustProcent"}, {"window": [{"op": "mean", "field": "narustProcent", "as": "klouzavyPrumer"}], "frame": [-4, 0]}]}], "data": {"url": "https://onemocneni-aktualne.mzcr.cz/api/v1/covid-19/nakaza.json"}, "resolve": {"scale": {"y": "independent"}}, "$schema": "https://vega.github.io/schema/vega-lite/v4.8.1.json"};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div class="error" style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
