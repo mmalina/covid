@@ -10,3 +10,5 @@ source venv/bin/activate
 python3 -m pip install -r requirements.txt
 python3 generate.py
 ```
+
+The resulting page can be seen here: https://mmalina.github.io/covid/
