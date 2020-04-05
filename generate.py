@@ -35,7 +35,8 @@ avg = base.mark_point(
 )
 
 rolling_avg = base.mark_line(
-    color='#F18727'
+    color='#F18727',
+    interpolate='basis'
 ).transform_window(
     rollingAvgGrowth='mean(dailyGrowth)',
     frame=[-4, 0],
