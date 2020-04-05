@@ -46,4 +46,9 @@ text = bars.mark_text(
 
 alt.layer(
     (bars + text), rolling_avg
-).resolve_scale(y='independent').save(OUTPUT_FILE)
+).resolve_scale(y='independent').encode(
+    tooltip=[
+        alt.Tooltip('pocetDen:Q', title='New cases'),
+        alt.Tooltip('dailyGrowth:Q', title='Growth', format='.0%')
+    ]
+).save(OUTPUT_FILE)
