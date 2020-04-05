@@ -58,4 +58,6 @@ alt.layer(
         alt.Tooltip('pocetDen:Q', title='New cases'),
         alt.Tooltip('dailyGrowth:Q', title='Daily growth', format='.0%')
     ]
+).properties(
+    title='Covid-19 Cases in the Czech Republic'
 ).save(OUTPUT_FILE)
