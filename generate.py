@@ -22,6 +22,18 @@ bars = base.mark_bar(
     ),
 )
 
+text = bars.mark_text(
+    dy=-5,
+).encode(
+    text=alt.Text('pocetDen:Q')
+)
+
+avg = base.mark_point(
+    color='#F18727'
+).encode(
+    y='dailyGrowth:Q'
+)
+
 rolling_avg = base.mark_line(
     color='#F18727'
 ).transform_window(
@@ -38,14 +50,8 @@ rolling_avg = base.mark_line(
     ),
 )
 
-text = bars.mark_text(
-    dy=-5,
-).encode(
-    text=alt.Text('pocetDen:Q')
-)
-
 alt.layer(
-    (bars + text), rolling_avg
+    (bars + text), (avg + rolling_avg)
 ).resolve_scale(y='independent').encode(
     tooltip=[
         alt.Tooltip('pocetDen:Q', title='New cases'),
