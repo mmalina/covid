@@ -46,7 +46,7 @@ rolling_avg = base.mark_line(
         axis=alt.Axis(
             format='.0%',
             titleColor='#F18727',
-            title='5-day rolling average of total cases growth (%)'
+            title='Daily growth (dot), 5-day rolling average (line)'
         )
     ),
 )
