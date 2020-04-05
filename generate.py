@@ -10,30 +10,30 @@ OUTPUT_FILE = 'index.html'
 base = alt.Chart(DATA_URL).transform_filter(
     datum.datum > '2020-03-10'
 ).transform_calculate(
-    narustProcent='datum.pocetDen / (datum.pocetCelkem - datum.pocetDen)'
-).encode(alt.X('datum:O', axis=alt.Axis(title='Datum')))
+    dailyGrowth='datum.pocetDen / (datum.pocetCelkem - datum.pocetDen)'
+).encode(alt.X('datum:O', axis=alt.Axis(title='Date')))
 
 bars = base.mark_bar(
     color='#5276A7'
 ).encode(
     alt.Y(
         'pocetDen:Q',
-        axis=alt.Axis(titleColor='#5276A7', title='Denní nárůst')
+        axis=alt.Axis(titleColor='#5276A7', title='New cases')
     ),
 )
 
 rolling_avg = base.mark_line(
     color='#F18727'
 ).transform_window(
-    klouzavyPrumer='mean(narustProcent)',
+    rollingAvgGrowth='mean(dailyGrowth)',
     frame=[-4, 0],
 ).encode(
     alt.Y(
-        'klouzavyPrumer:Q',
+        'rollingAvgGrowth:Q',
         axis=alt.Axis(
             format='.0%',
             titleColor='#F18727',
-            title='5denní klouzavý průměrný nárůst (%)'
+            title='5-day rolling average of total cases growth (%)'
         )
     ),
 )
