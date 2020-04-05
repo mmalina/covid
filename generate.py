@@ -5,7 +5,7 @@ import altair as alt
 from altair.expr import datum
 
 DATA_URL = 'https://onemocneni-aktualne.mzcr.cz/api/v1/covid-19/nakaza.json'
-OUTPUT_FILE = 'index.html'
+OUTPUT_FILE = 'docs/index.html'
 
 base = alt.Chart(DATA_URL).transform_filter(
     datum.datum > '2020-03-10'
