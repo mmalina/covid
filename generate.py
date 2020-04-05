@@ -56,6 +56,6 @@ alt.layer(
 ).resolve_scale(y='independent').encode(
     tooltip=[
         alt.Tooltip('pocetDen:Q', title='New cases'),
-        alt.Tooltip('dailyGrowth:Q', title='Growth', format='.0%')
+        alt.Tooltip('dailyGrowth:Q', title='Daily growth', format='.0%')
     ]
 ).save(OUTPUT_FILE)
